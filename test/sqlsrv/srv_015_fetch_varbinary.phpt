@@ -56,13 +56,12 @@ $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_NUMERIC) ?: die( print_r( sqlsr
 echo base64_encode($result[0]) . "\n";
 
 // DROP database
-$conn->query("DROP DATABASE ". $dbName) ?: die();
+$stmt = sqlsrv_query($conn,"DROP DATABASE ". $dbName);
 
-// Close connection
-$stmt = null;
-$conn = null;
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 
-print "Done";
+print "Done"
 ?>
 
 --EXPECT--
